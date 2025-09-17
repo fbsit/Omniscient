@@ -1,15 +1,12 @@
 "use client";
-import { useEffect, useMemo, useState } from 'react';
-import Toolbar from './components/Toolbar';
-import OrdersTable from './components/OrdersTable';
-import Loading from '../components/Loading';
-import CreateOrderModal from './components/CreateOrderModal';
+import { useEffect, useState } from 'react';
 import { App as AntdApp } from 'antd';
-import { ordersApi } from '../lib/api';
-import type { CreateProductionOrderInput, ProductionOrder, ProductionOrderStatus } from '../lib/types';
+import { ordersApi } from '../../lib/api';
+import OrdersView from './OrdersView';
+import type { CreateProductionOrderInput, ProductionOrder, ProductionOrderStatus } from '../../lib/types';
 
 export default function OrdersContainer() {
-  const { message } = AntdApp.useApp();
+  const { message, notification } = AntdApp.useApp();
   const [orders, setOrders] = useState<ProductionOrder[]>([]);
   const [allOrders, setAllOrders] = useState<ProductionOrder[]>([]);
   const [loading, setLoading] = useState(false);
@@ -35,7 +32,9 @@ export default function OrdersContainer() {
       setAllOrders(data);
       setOrders(applyText(data, debounced));
     } catch (e) {
-      setError((e as Error).message);
+      const msg = (e as Error).message;
+      setError(msg);
+      notification.error({ message: 'Failed to load orders', description: msg, placement: 'bottomRight' });
     } finally { setLoading(false); }
   };
 
@@ -51,42 +50,28 @@ export default function OrdersContainer() {
       setIsModalOpen(false);
       message.success('Order created');
     } catch (e) {
-      message.error((e as Error).message);
+      const msg = (e as Error).message;
+      notification.error({ message: 'Failed to create order', description: msg, placement: 'bottomRight' });
     } finally { setSubmitting(false); }
   };
 
   return (
-    <>
-      <main className="container">
-        {loading && orders.length === 0 ? (
-          <Loading message="Cargando órdenes..." fullScreen />
-        ) : (
-          <>
-            <Toolbar
-              textFilter={textFilter}
-              onTextFilterChange={setTextFilter}
-              statusFilter={statusFilter}
-              onStatusFilterChange={setStatusFilter}
-              loading={loading}
-              onRefresh={load}
-              onAdd={() => setIsModalOpen(true)}
-            />
-            <OrdersTable orders={orders} loading={loading} />
-            {error && <div style={{ color: 'red', marginTop: 8 }}>Error: {error}</div>}
-          </>
-        )}
-      </main>
-
-      {isModalOpen && (
-        <CreateOrderModal
-          open={isModalOpen}
-          submitting={submitting}
-          onCancel={() => setIsModalOpen(false)}
-          onCreate={handleCreate}
-        />
-      )}
-    </>
+    <OrdersView
+      orders={orders}
+      loading={loading}
+      textFilter={textFilter}
+      statusFilter={statusFilter}
+      isModalOpen={isModalOpen}
+      submitting={submitting}
+      onTextFilterChange={setTextFilter}
+      onStatusFilterChange={setStatusFilter}
+      onRefresh={load}
+      onAdd={() => setIsModalOpen(true)}
+      onCancelCreate={() => setIsModalOpen(false)}
+      onCreate={handleCreate}
+    />
   );
 }
+
 
 

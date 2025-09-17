@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import 'antd/dist/reset.css'
 import { App as AntdApp, ConfigProvider } from 'antd';
-import Header from './components/Header';
+import Header from './components/common/Header';
 import "./globals.css";
 
 export const metadata: Metadata = {

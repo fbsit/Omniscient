@@ -19,7 +19,8 @@ export default function OrdersTable({ orders, loading }: OrdersTableProps) {
     { title: 'Created', dataIndex: 'createdAt', key: 'createdAt', render: (v: string) => dayjs(v).format('YYYY-MM-DD HH:mm') },
   ];
 
-  return <Table rowKey={(r) => r.id} columns={columns} dataSource={orders} loading={loading} pagination={{ pageSize: 8 }} />;
+  return <Table rowKey={(r) => r.id} columns={columns} dataSource={orders} loading={loading} pagination={{ pageSize: 8 }} scroll={{ x: 'max-content' }} />;
 }
+
 
 
