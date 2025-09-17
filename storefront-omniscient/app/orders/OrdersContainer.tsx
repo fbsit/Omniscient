@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useMemo, useState } from 'react';
-import Header from './components/Header';
 import Toolbar from './components/Toolbar';
 import OrdersTable from './components/OrdersTable';
 import Loading from '../components/Loading';
@@ -58,7 +57,6 @@ export default function OrdersContainer() {
 
   return (
     <>
-      <Header />
       <main className="container">
         {loading && orders.length === 0 ? (
           <Loading message="Cargando órdenes..." fullScreen />
