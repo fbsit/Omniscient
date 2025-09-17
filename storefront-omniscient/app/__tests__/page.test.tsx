@@ -3,11 +3,15 @@ import { render, screen, waitFor, within } from '@testing-library/react';
 import { App as AntdApp, ConfigProvider } from 'antd';
 import userEvent from '@testing-library/user-event';
 import Page from '../page';
+import Header from '../components/Header';
 
 function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ConfigProvider>
-      <AntdApp>{children}</AntdApp>
+      <AntdApp>
+        <Header />
+        {children}
+      </AntdApp>
     </ConfigProvider>
   );
 }
