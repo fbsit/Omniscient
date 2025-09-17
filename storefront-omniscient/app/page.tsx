@@ -1,4 +1,4 @@
-import OrdersContainer from './components/orders/OrdersContainer';
+import { OrdersContainer } from './components/containers';
 
 export default function Page() {
   return <OrdersContainer />;

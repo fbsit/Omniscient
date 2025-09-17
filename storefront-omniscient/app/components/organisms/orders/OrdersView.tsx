@@ -1,9 +1,9 @@
 "use client";
-import Toolbar from './Toolbar';
-import OrdersTable from './OrdersTable';
-import Loading from '../common/Loading';
-import CreateOrderModal from './CreateOrderModal';
-import type { CreateProductionOrderInput, ProductionOrder, ProductionOrderStatus } from '../../lib/types';
+import Toolbar from '../../molecules/Toolbar';
+import OrdersTable from '../../molecules/OrdersTable';
+import Loading from '../../atoms/Loading';
+import CreateOrderModal from '../../molecules/CreateOrderModal';
+import type { CreateProductionOrderInput, ProductionOrder, ProductionOrderStatus } from '../../../lib/types';
 
 export interface OrdersViewProps {
   orders: ProductionOrder[];

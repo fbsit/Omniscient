@@ -3,13 +3,13 @@ import { render, screen, waitFor, within } from '@testing-library/react';
 import { App as AntdApp, ConfigProvider } from 'antd';
 import userEvent from '@testing-library/user-event';
 import Page from '../page';
-import Header from '../components/common/Header';
+import { HeaderContainer } from '../components/containers';
 
 function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ConfigProvider>
       <AntdApp>
-        <Header />
+        <HeaderContainer />
         {children}
       </AntdApp>
     </ConfigProvider>

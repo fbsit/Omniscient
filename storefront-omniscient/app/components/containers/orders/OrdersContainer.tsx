@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from 'react';
 import { App as AntdApp } from 'antd';
-import { ordersApi } from '../../lib/api';
-import OrdersView from './OrdersView';
-import type { CreateProductionOrderInput, ProductionOrder, ProductionOrderStatus } from '../../lib/types';
+import { ordersApi } from '../../../lib/api';
+import OrdersView from '../../organisms/orders/OrdersView';
+import type { CreateProductionOrderInput, ProductionOrder, ProductionOrderStatus } from '../../../lib/types';
 
 export default function OrdersContainer() {
   const { message, notification } = AntdApp.useApp();
